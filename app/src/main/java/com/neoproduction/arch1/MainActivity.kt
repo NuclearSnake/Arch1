@@ -2,7 +2,6 @@ package com.neoproduction.arch1
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -18,11 +17,14 @@ class MainActivity : AppCompatActivity() {
         serverManager = ServerManager()
 
         lifecycle.addObserver(serverManager)
-        vm.getMessage().observe(this, Observer<String> {
-            tvText.text = it
-        })
+        observe(vm.getMessage(), ::onMessageChange)
+
         tvText.setOnClickListener {
             vm.onClick()
         }
+    }
+
+    fun onMessageChange(newMessage: String) {
+        tvText.text = newMessage
     }
 }
