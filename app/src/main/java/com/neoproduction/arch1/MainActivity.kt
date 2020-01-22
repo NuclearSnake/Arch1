@@ -10,15 +10,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         serverManager = ServerManager()
-    }
-
-    override fun onStart() {
-        super.onStart()
-        serverManager.connect()
-    }
-
-    override fun onStop() {
-        serverManager.disconnect()
-        super.onStop()
+        lifecycle.addObserver(serverManager)
     }
 }
